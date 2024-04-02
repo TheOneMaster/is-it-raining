@@ -1,1 +1,5 @@
-.env
+# Python repo gitignore
+.venv
+**/__pycache__
+
+.vscode
