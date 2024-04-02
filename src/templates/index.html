@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{{ url_for('static', path='/main.css') }}" rel="stylesheet">
+    <title>Is it raining?</title>
+
+    <!-- Font download -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1>
+            isitraining/<input type="text" id="city" onkeydown="loadCity">?
+        </h1>
+
+        <div>
+        <h3>Some Examples:</h3>
+        <p>
+            <a href="/New-York">
+            isitraining/<strong>New-York</strong>
+            </a>
+            , 
+            <a href="/Berlin">
+            isitraining/<strong>Berlin</strong>
+            </a>
+            , 
+            <a href="/Delhi">
+            isitraining/<strong>Delhi</strong>
+            </a>
+            , 
+            <a href="/London">
+            isitraining/<strong>London</strong>
+            </a>
+        </p>
+        </div>
+    </div>
+
+    <script>
+
+    const cityInput = document.getElementById("city");
+    cityInput.addEventListener("keydown", loadCity)
+    
+    function loadCity(event) {
+        if (event.key === "Enter") {
+            const currentURL = window.location.href;
+            const cityName = this.value;
+            const newURL = `${currentURL}${cityName}`;
+            location.replace(newURL);
+        }
+    }
+    
+    </script>
+</body>
+</html>

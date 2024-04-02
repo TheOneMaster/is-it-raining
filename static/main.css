@@ -1,0 +1,47 @@
+body {
+    font-size: 21px;
+}
+
+h1 {
+    font-family: "Open Sans", sans-serif;
+    font-size: 76px;
+    letter-spacing: -3px;
+    font-weight: 700;
+    color: #333;
+}
+
+input {
+    font: inherit;
+    color: inherit;
+    width: 380px;
+    margin-left: 3px;
+    letter-spacing: -3px;
+    box-sizing: border-box;
+    border: 0;
+}
+
+body .container {
+    max-width: 920px;
+}
+
+.container {
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+a {
+    color: #222;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #000;
+    text-decoration: underline;
+}
+
+strong {
+    font-weight: 700;
+    color: #000;
+}
