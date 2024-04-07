@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+
+    {% include "search.html" %}
+
+    <h1 class="center">
+        <i class="bi-{{weather_code}}"></i>
+        {% if raining %}Yes{% else %}No{% endif %}
+    </h1>
+
+
+</div>
+{% endblock  %}

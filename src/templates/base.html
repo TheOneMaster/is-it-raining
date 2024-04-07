@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{{ url_for('static', path='/main.css') }}" rel="stylesheet">
+    <link rel="shortcut icon" href="{{ url_for('static', path='favicon.ico') }}">
+    <title>Is it raining?</title>
+
+    <!-- Font download -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+</head>
+<body>
+    {% block content %}{% endblock  %}
+
+    <div class="container" id="examples">
+        <h3>Some Examples:</h3>
+        <p>
+            <a href="/New-York">IsItRaining/<strong>New-York</strong></a>, 
+            <a href="/Berlin">IsItRaining/<strong>Berlin</strong></a>, 
+            <a href="/Delhi">IsItRaining/<strong>Delhi</strong></a>, 
+            <a href="/London">IsItRaining/<strong>London</strong></a>,
+            <a href="/Tokyo">IsItRaining/<strong>Tokyo</strong></a>,
+            <a href="/Beijing">IsItRaining/<strong>Beijing</strong></a>,
+            <a href="/Rio-de-Janeiro">IsItRaining/<strong>Rio-de-Janeiro</strong></a>,
+            <a href="/San-Francisco">IsItRaining/<strong>San-Francisco</strong></a>,
+            <a href="/Sydney">IsItRaining/<strong>Sydney</strong></a>,
+            <a href="/Mumbai">IsItRaining/<strong>Mumbai</strong></a>
+        </p>
+
+        <p>
+        <small>Data is from Open-meteo.com. Results are cached for 30 minutes.</small>
+        </p>
+    </div>
+
+    <script>
+        const cityInput = document.getElementById("citysearch");
+
+        cityInput.focus();
+        cityInput.addEventListener("keydown", loadCity);
+
+        function loadCity(event) {
+            if (event.key === "Enter") {
+                const currentURL = window.location.hostname;
+                const cityName = this.value;
+                const newURL = `/${cityName}`;
+                location.replace(newURL);
+            }
+        }
+</script>
+</body>
+</html>

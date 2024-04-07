@@ -1,5 +1,9 @@
 body {
     font-size: 21px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    line-height: 1.4;
+    color: #333;
+    background-color: #fff;
 }
 
 h1 {
@@ -7,13 +11,27 @@ h1 {
     font-size: 76px;
     letter-spacing: -3px;
     font-weight: 700;
-    color: #333;
+    margin: 80px 0 0;
+}
+
+h2 {
+    font-weight: 400;
+    font-size: 25px;
+}
+
+h1, h2, h3 {
+    line-height: 1.1;
+    color: inherit;
+}
+
+.center {
+    text-align: center;
 }
 
 input {
     font: inherit;
     color: inherit;
-    width: 380px;
+    width: 430px;
     margin-left: 3px;
     letter-spacing: -3px;
     box-sizing: border-box;
@@ -31,6 +49,10 @@ body .container {
     padding-right: 15px;
 }
 
+.inner-container {
+    margin: 15px 0;
+}
+
 a {
     color: #222;
     text-decoration: none;
@@ -44,4 +66,21 @@ a:hover {
 strong {
     font-weight: 700;
     color: #000;
+}
+
+/* #citysearch {
+    border: 1px solid lightblue;
+    border-radius: 20px;
+} */
+
+.bi-sun-fill {
+    color: orange
+}
+
+#examples {
+    margin-top: 50px;
+}
+
+small {
+    font-size: 75%;
 }
