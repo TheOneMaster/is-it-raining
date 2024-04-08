@@ -26,7 +26,8 @@ class WeatherType(Enum):
     THUNDER = 6
 
 @dataclass
-class Coords:
+class Place:
+    name: str
     latitude: float
     longitude: float
     exists: bool = False
@@ -48,7 +49,7 @@ WEATHER_ICON_MAP: dict[WeatherType, str] = {
 
 
 
-def getCityCoords(city: str) -> Coords:
+def getPlaceData(city: str) -> Place:
     params = {
         "name": city,
         "count": 1
@@ -56,17 +57,19 @@ def getCityCoords(city: str) -> Coords:
     response = cache_session.get(GEOCODING_URL, params)
     json = response.json()
 
-    coords = Coords(0, 0)
+    coords = Place("", 0, 0)
     try:
         results = json['results']
         result = results[0]
-        coords = Coords(result['latitude'], result['longitude'], True)
+        name = result["name"]
+        lat, long = result['latitude'], result['longitude']
+        coords = Place(name, lat, long, True)
     except:
         pass
 
     return coords
 
-def getWeather(coords: Coords) -> Weather:
+def getWeather(coords: Place) -> Weather:
     params = {
         'latitude': coords.latitude,
         'longitude': coords.longitude,
@@ -74,7 +77,7 @@ def getWeather(coords: Coords) -> Weather:
     }
 
     responses = openmeteo.weather_api(FORECAST_URL, params)
-    
+
     response = responses[0]
     current_weather = response.Current()
     precip = current_weather.Variables(0).Value()

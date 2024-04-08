@@ -26,24 +26,24 @@ async def root(request: Request):
 @app.get("/{city}", response_class=HTMLResponse)
 async def showCity(request: Request, city: str):
     city = city.replace("-", " ")
-    coords = weather.getCityCoords(city)
+    place = weather.getPlaceData(city)
 
-    if not coords.exists:
+    if not place.exists:
 
         context = {
-            "city": city
+            "city": place.name
         }
 
         return templates.TemplateResponse(
             request=request, name='notFound.html', context=context
         )
 
-    city_weather = weather.getWeather(coords)
+    city_weather = weather.getWeather(place)
     placeholder = weather.getRandomCity()
     icon = weather.getWeatherIcon(city_weather.weather_code)
 
     context = {
-        "city": city,
+        "city": place.name,
         "raining": city_weather.precipitation > 0,
         "rain_level": city_weather.precipitation,
         "weather_code": icon,
