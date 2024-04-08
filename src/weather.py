@@ -2,7 +2,7 @@ import openmeteo_requests
 import requests
 import requests_cache
 from retry_requests import retry
-from enum import Enum
+from enum import StrEnum
 
 import random
 
@@ -16,14 +16,14 @@ cache_session = requests_cache.CachedSession('.cache', expire_after=THIRTY_MINUT
 retry_session = retry(cache_session, retries=5, backoff_factor=0.2)
 openmeteo = openmeteo_requests.Client(session=retry_session)
 
-class WeatherType(Enum):
-    CLEAR = 0
-    CLOUDY = 1
-    DRIZZLE = 2
-    RAIN = 3
-    SNOW = 4
-    SHOWER = 5
-    THUNDER = 6
+class WeatherType(StrEnum):
+    CLEAR = "sun-fill"
+    CLOUDY = "clouds-fill"
+    DRIZZLE = "cloud-drizzle-fill"
+    RAIN = "cloud-rain-fill"
+    SNOW = "cloud-snow-fill"
+    SHOWER = "cloud-rain-heavy-fill"
+    THUNDER = "cloud-lightning-rain-fill"
 
 @dataclass
 class Place:
@@ -36,18 +36,6 @@ class Place:
 class Weather:
     weather_code: WeatherType
     precipitation: float
-
-WEATHER_ICON_MAP: dict[WeatherType, str] = {
-    WeatherType.CLEAR: "sun-fill",
-    WeatherType.CLOUDY: "clouds-fill",
-    WeatherType.DRIZZLE: "cloud-drizzle-fill",
-    WeatherType.RAIN: "cloud-rain-fill",
-    WeatherType.SNOW: "cloud-snow-fill",
-    WeatherType.SHOWER: "cloud-rain-heavy-fill",
-    WeatherType.THUNDER: "cloud-lightning-rain-fill",
-}
-
-
 
 def getPlaceData(city: str) -> Place:
     params = {
@@ -107,6 +95,3 @@ def getWeather(coords: Place) -> Weather:
 def getRandomCity() -> str:
     city_list = ['New-Delhi', 'New-York', 'London', 'Berlin', 'Amsterdam', 'Ottawa', 'Sydney', 'Tokyo', 'Beijing']
     return random.choice(city_list)
-
-def getWeatherIcon(state: WeatherType) -> str:
-    return WEATHER_ICON_MAP[state]
