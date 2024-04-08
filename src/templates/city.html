@@ -4,6 +4,8 @@
 
     {% include "search.html" %}
 
+    <h2 id="cityTitle" class="center">{{city}}</h2>
+
     <h1 class="center">
         <i class="bi-{{weather_code}}"></i>
         {% if raining %}Yes{% else %}No{% endif %}
