@@ -6,15 +6,12 @@ from fastapi.responses import HTMLResponse
 from . import weather
 
 app = FastAPI()
-
 app.mount("/static", StaticFiles(directory='static'), name='static')
 
 templates = Jinja2Templates(directory='src/templates')
 
-
 @app.get("/", response_class=HTMLResponse)
 async def root(request: Request):
-
     context = {
         'placeholder': weather.getRandomCity()
     }
@@ -27,11 +24,12 @@ async def root(request: Request):
 async def showCity(request: Request, city: str):
     city = city.replace("-", " ")
     place = weather.getPlaceData(city)
+    placeholder = weather.getRandomCity()
 
     if not place.exists:
-
         context = {
-            "city": place.name
+            "city": place.name,
+            "placeholder": placeholder
         }
 
         return templates.TemplateResponse(
@@ -39,15 +37,13 @@ async def showCity(request: Request, city: str):
         )
 
     city_weather = weather.getWeather(place)
-    placeholder = weather.getRandomCity()
-    icon = weather.getWeatherIcon(city_weather.weather_code)
 
     context = {
         "city": place.name,
+        "placeholder": placeholder,
         "raining": city_weather.precipitation > 0,
         "rain_level": city_weather.precipitation,
-        "weather_code": icon,
-        "placeholder": placeholder
+        "weather_code": city_weather.weather_code
     }
 
     return templates.TemplateResponse(
