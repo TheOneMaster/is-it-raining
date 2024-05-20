@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Request
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, RedirectResponse
 
 from . import weather
 
@@ -19,6 +19,13 @@ async def root(request: Request):
     return templates.TemplateResponse(
         request=request, name='index.html', context=context
     )
+
+@app.get("/me", response_class=RedirectResponse)
+async def showCurrentLocation(request: Request):
+    current_city = weather.getCurrentCity(request.client.host)
+    encoded_city = current_city.replace(" ", "-")
+
+    return RedirectResponse(f"/{encoded_city}", status_code=302)
 
 @app.get("/{city}", response_class=HTMLResponse)
 async def showCity(request: Request, city: str):

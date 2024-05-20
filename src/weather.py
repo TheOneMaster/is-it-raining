@@ -95,3 +95,10 @@ def getWeather(coords: Place) -> Weather:
 def getRandomCity() -> str:
     city_list = ['New-Delhi', 'New-York', 'London', 'Berlin', 'Amsterdam', 'Ottawa', 'Sydney', 'Tokyo', 'Beijing']
     return random.choice(city_list)
+
+def getCurrentCity(ip_addr: str) -> str:
+    url = f"https://ipinfo.io/{ip_addr}/json"
+    response = requests.get(url=url)
+    json = response.json()
+
+    return json['city']
